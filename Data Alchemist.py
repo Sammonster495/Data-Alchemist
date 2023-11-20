@@ -10,6 +10,7 @@ from sklearn.neighbors import KNeighborsClassifier
 from sklearn.decomposition import PCA
 from sklearn.pipeline import Pipeline
 from sklearn.metrics import accuracy_score
+from imblearn.over_sampling import SMOTE
 from ydata_profiling import ProfileReport
 import pandas as pd
 import numpy as np
@@ -77,6 +78,8 @@ else:
     pipeline_knn = Pipeline([('scaler5', StandardScaler()),('pca5', PCA()), ('knn', KNeighborsClassifier())])
     pipelines = [pipeline_log, pipeline_dtc, pipeline_svc, pipeline_nbc, pipeline_knn]
     pipe_dict = {0:'Logistic Regression', 1:'Decision Tree', 2:'SVC', 3:'Naive Bayes', 4:'K Nearest Neighbors'}
+    x, y = SMOTE().fit_resample(x, y)
+    x_train, x_test, y_train, y_test = train_test_split(x, y, test_size = 0.2, random_state = 7)
     for pipe in pipelines:
         pipe.fit(x_train, y_train)
     for i, model in enumerate(pipelines):
