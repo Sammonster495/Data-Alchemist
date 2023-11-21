@@ -45,6 +45,7 @@ for i in attributes:
         df[[i]] = imputer.fit_transform(df[[i]])
 
 # Determining the target set from user input
+print(list(df.columns))
 target = input("Enter the target variable : ")
 
 # Creating the feature and target sets
